@@ -11,10 +11,14 @@ function App() {
     <BrowserRouter>
       <Navbar/>
       <Routes>
-        <Route path='/' element={<MoviesList />}/>
+        <Route path='/' element={
+          <>
+          <Banner />
+          <MoviesList />
+          </>
+        }/>
         <Route path='/fav' element={<Favourites />}/>
-      </Routes>  
-      <Banner/>
+      </Routes>
     </BrowserRouter>
   )
 }

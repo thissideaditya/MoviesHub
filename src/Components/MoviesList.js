@@ -8,7 +8,8 @@ export default class MoviesList extends Component {
             hover:" ",
             parr:[1],
             currPage:1,
-            movies:[]
+            movies:[],
+            favMov:[] // this will store ids of the movies which are in favs
         }
     }
     handleEnter = (id) => {
@@ -49,8 +50,25 @@ export default class MoviesList extends Component {
             currPage:this.state.currPage-1
         }, this.changeMovies) 
     }
-    handlePageNo = () => {
-
+    handlePageNo = (pageNum) =>{
+        this.setState(
+          {
+            currPage: pageNum,
+          },
+          this.changeMovies
+        );
+      }
+    handleFavs = (movieObj) => {
+        let lsMovies = JSON.parse(localStorage.getItem("movies")) || [];
+        if(this.state.favMov.includes(movieObj.id)){
+            lsMovies = lsMovies.filter(movie => movie.id != movieObj.id)
+        }
+        else lsMovies.push(movieObj);
+        localStorage.setItem("movies", JSON.stringify(lsMovies))
+        let tempData = lsMovies.map(movieObj => movieObj.id)
+        this.setState({
+            favMov:[...tempData]
+        });
     }
 
     async componentDidMount(){
@@ -80,7 +98,7 @@ export default class MoviesList extends Component {
                                     {/* <p className="card-text movie-text">{movieObj.overview}</p> */}
                                     <div className="button-wrapper">
                                         {this.state.hover == movieObj.id && (
-                                        <button className="btn btn-primary movie-button">Add to Favourites</button>
+                                        <button className="btn btn-primary movie-button" onClick={() => this.handleFavs(movieObj)}>Add to Favourites</button>
                                         )}
                                     </div>
                                     {/* </div> */}
