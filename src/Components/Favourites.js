@@ -106,6 +106,15 @@ export default class Favourites extends Component {
       currPage:page
     });
   };
+  handleDelete = (id) => {
+    let newMovies = this.state.movies.filter((movieObj) => {
+      return movieObj.id != id;
+    });
+    this.setState({
+      movies:[...newMovies]
+    });
+    localStorage.setItem("movies", JSON.stringify(newMovies))
+  }
 
 
   render() {
@@ -179,7 +188,7 @@ export default class Favourites extends Component {
         <div class="col favs-table">
           <div>
             <input type="text" placeholder='Search' value={this.state.currText} onChange={this.handleText} style={{ width: "90%", borderTopLeftRadius: "0.3rem", borderBottomLeftRadius: "0.3rem" }} />
-            <input type="number" placeholder='5' style={{ width: "10%", borderTopRightRadius: "0.3rem", borderBottomRightRadius: "0.3rem" }} />
+            <input type="number" value={this.state.limit} onChange={(e) => {this.setState({limit:e.target.value})}} style={{ width: "10%", borderTopRightRadius: "0.3rem", borderBottomRightRadius: "0.3rem" }} />
           </div>
           <table class="table">
             <thead>
@@ -201,7 +210,7 @@ export default class Favourites extends Component {
                     <td>{genreId[movieObj.genre_ids[0]]}</td>
                     <td>{movieObj.popularity}</td>
                     <td>{movieObj.vote_average}</td>
-                    <td><button class="btn btn-outline-danger">Delete</button></td>
+                    <td><button class="btn btn-outline-danger" onClick={() => this.handleDelete(movieObj.id)}>Delete</button></td>
                   </tr>
                 ))
               }
