@@ -98,7 +98,7 @@ export default class MoviesList extends Component {
                                     {/* <p className="card-text movie-text">{movieObj.overview}</p> */}
                                     <div className="button-wrapper">
                                         {this.state.hover == movieObj.id && (
-                                        <button className="btn btn-primary movie-button" onClick={() => this.handleFavs(movieObj)}>Add to Favourites</button>
+                                        <button className="btn btn-primary movie-button" onClick={() => this.handleFavs(movieObj)}>{this.state.favMov.includes(movieObj.id) ? "Remove from Favourites" : "Add to Favourites"}</button>
                                         )}
                                     </div>
                                     {/* </div> */}
