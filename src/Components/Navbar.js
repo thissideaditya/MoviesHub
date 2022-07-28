@@ -8,7 +8,7 @@ export default class Navbar extends Component {
         <h1>Movies Hub</h1>
       </Link>
       <Link to="/fav" style={{textDecoration:"none"}}>
-        <h2 style={{marginLeft:'2rem'}}>Favourites</h2>
+        <h2 style={{marginLeft:'2rem'}}>WatchList</h2>
       </Link>
     </nav>
   }
